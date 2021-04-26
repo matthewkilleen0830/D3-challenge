@@ -72,7 +72,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .text(d => d.abbr)
         .attr("x", d => xLinearScale(d.poverty))
         .attr("y", d => yLinearScale(d.healthcare))
-        .attr("dx", d => -9)
+        .attr("dx", d => -10)
         .attr("dy", d => 6);
         
     // Initialize tool tip
@@ -80,10 +80,18 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .attr("class", "tooltip")
         .offset([80, -60])
         .html(function(d) {
-        return (`${d.state}<br>In Poverty: ${d.poverty}<br>Lacks Healthcare: ${d.healthcare}`);
+        return (`${d.state}<br>In Poverty (%): ${d.poverty}<br>Lacks Healthcare (%): ${d.healthcare}`);
         });
 
     // Create tool tip in the plot
     chartGroup.call(toolTip);
+
+    // Create event listeners to display and hide tool tip
+    circlesGroup.on("mouseover", function(data) {
+        toolTip.show(data, this);
+    })
+        .on("mouseout", function(data, index) {
+            toolTip.hide(data);
+        });
 
 });
