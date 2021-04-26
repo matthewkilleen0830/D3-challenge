@@ -24,3 +24,16 @@ var svg = d3.select(".scatter")
 // Append an SVG group to hold our plot and shift the latter by left and top margins
 var chartGroup = svg.append("g")
     .attr("transform", `translate(${margin.left}, ${margin.top})`);
+
+// Import data
+d3.csv("assets/data/data.csv").then(function(censusData) {
+
+    // Parse data and cast as numbers
+    censusData.forEach(function(data) {
+        data.poverty = +data.poverty;
+        data.healthcare = +data.healthcare;
+      });
+
+    // Create linear scale functions for x and y axes
+
+});
