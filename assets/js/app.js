@@ -43,7 +43,17 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .range([height, 0]);
 
     // Create axis functions
+    var bottomAxis = d3.axisBottom(xLinearScale);
+    var leftAxis = d3.axisLeft(yLinearScale);
 
-
+    // Append axes to the plot
+    chartGroup.append("g")
+        .attr("transform", `translate(0, ${height})`)
+        .call(bottomAxis);
+    chartGroup.append("g")
+        .call(leftAxis);
     
+    // Create scatter plot circles
+
+
 });
