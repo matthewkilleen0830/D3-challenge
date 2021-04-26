@@ -18,6 +18,7 @@ var height = svgHeight - margin.top - margin.bottom;
 // Create an SVG wrapper
 var svg = d3.select("#scatter")
     .append("svg")
+    // .attr("viewBox", `0 0 500 960`);
     .attr("width", svgWidth)
     .attr("height", svgHeight);
 
@@ -60,7 +61,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .append("circle")
         .attr("cx", d => xLinearScale(d.poverty))
         .attr("cy", d => yLinearScale(d.healthcare))
-        .attr("r", "15")
+        .attr("r", "10")
         .attr("fill", "#8abcd5")
         .attr("opacity", "1.0");
 
@@ -72,13 +73,16 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .text(d => d.abbr)
         .attr("x", d => xLinearScale(d.poverty))
         .attr("y", d => yLinearScale(d.healthcare))
-        .attr("dx", d => -10)
-        .attr("dy", d => 6);
+        .attr("dx", d => -7.5)
+        .attr("dy", d => 4)
+        .attr("font-size", "10px")
+        .attr("font-weight", "bold")
+        .attr("fill", "#ffffff");
         
     // Initialize tool tip
     var toolTip = d3.tip()
         .attr("class", "tooltip")
-        .offset([80, -60])
+        // .offset([80, -60])
         .html(function(d) {
         return (`${d.state}<br>In Poverty (%): ${d.poverty}<br>Lacks Healthcare (%): ${d.healthcare}`);
         });
@@ -98,12 +102,14 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
     chartGroup.append("text")
         .attr("transform", "rotate(-90)")
         .attr("y", 0 - margin.left + 40)
-        .attr("x", 0 - (height / 2))
+        .attr("x", 0 - (height / 2) - 50)
         .attr("dy", "1em")
         .attr("class", "axisText")
+        .attr("font-weight", "bold")
         .text("Lacks Healthcare (%)");
     chartGroup.append("text")
-        .attr("transform", `translate(${width / 2}, ${height + margin.top + 30})`)
+        .attr("transform", `translate(${(width / 2) - 50}, ${height + margin.top + 30})`)
         .attr("class", "axisText")
+        .attr("font-weight", "bold")
         .text("In Poverty (%)");
 });
