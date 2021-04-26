@@ -84,7 +84,7 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
         .attr("class", "tooltip")
         // .offset([80, -60])
         .html(function(d) {
-        return (`${d.state}<br>In Poverty (%): ${d.poverty}<br>Lacks Healthcare (%): ${d.healthcare}`);
+        return (`${d.state}<br>In Poverty (%):  ${d.poverty}<br>Lacks Healthcare (%):  ${d.healthcare}`);
         });
 
     // Create tool tip in the plot
@@ -92,6 +92,13 @@ d3.csv("assets/data/data.csv").then(function(censusData) {
 
     // Create event listeners to display and hide tool tip
     circlesGroup.on("mouseover", function(data) {
+        toolTip.show(data, this);
+    })
+        .on("mouseout", function(data, index) {
+            toolTip.hide(data);
+        });
+
+    textGroup.on("mouseover", function(data) {
         toolTip.show(data, this);
     })
         .on("mouseout", function(data, index) {
